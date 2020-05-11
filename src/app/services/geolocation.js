@@ -6,7 +6,9 @@ class GeolocationService {
     }
 
     getGeolocationInfo() {
-        return fetch(`${this.endpoint}/json?token=${config.GEOLOCATION_API_KEY}`).then(res => res.json());
+        return fetch(`${this.endpoint}/json?token=${config.GEOLOCATION_API_KEY}`)
+            .then(res => res.json())
+            .then(({ city, country }) => ({ city, country }));
     }
 }
 
