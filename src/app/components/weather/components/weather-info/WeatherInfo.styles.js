@@ -1,15 +1,13 @@
 import { createUseStyles } from 'react-jss';
 
 export const useStyles = createUseStyles({
-    locationWrapper: {
+    temperatureInfo: {
         display: 'flex',
         flexDirection: 'column',
+        alignItems: 'flex-start',
     },
-    location: {
-        fontSize: 44,
+    infoRecord: {
+        fontSize: 22,
         textTransform: 'uppercase',
-    },
-    time: {
-        fontSize: 24,
     },
 });

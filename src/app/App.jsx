@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { imagesService } from './services/images';
-import { WeatherInfo } from './components';
+import { Weather } from './components';
 
 export const App = () => {
     const [backgroundUrl, setBackground] = useState('');
@@ -12,7 +12,7 @@ export const App = () => {
 
     return (
         <div style={{ background: `url("${backgroundUrl}") no-repeat center`, height: '100vh', width: '100%' }}>
-            <WeatherInfo />
+            <Weather />
         </div>
     );
 };

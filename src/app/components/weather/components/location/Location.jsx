@@ -23,9 +23,9 @@ export const Location = ({ location: { country, city } }) => {
 
 const getDate = () => {
     const date = new Date();
-    return `${WEEK_DAYS[date.getDay()]} ${date.getDate()} ${
-        MONTHS[date.getMonth()]
-    } ${date.getHours()}:${date.getMinutes()}`;
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+
+    return `${WEEK_DAYS[date.getDay()]} ${date.getDate()} ${MONTHS[date.getMonth()]} ${date.getHours()}:${minutes}`;
 };
 
 Location.propTypes = {

@@ -1,1 +1,1 @@
-export * from './weather-info/WeatherInfo';
+export * from './weather/Weather';
