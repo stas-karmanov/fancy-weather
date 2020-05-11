@@ -10,7 +10,7 @@ class ImagesService {
             `${this.endpoint}/random?orientation=landscape&per_page=1&query=nature&client_id=${config.IMAGES_API_KEY}`,
         )
             .then(res => res.json())
-            .then(({ urls: { regular } }) => regular);
+            .then(({ urls: { full } }) => full);
     }
 }
 
