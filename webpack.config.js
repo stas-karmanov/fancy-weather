@@ -32,6 +32,7 @@ module.exports = envOptions => {
             }),
             new webpack.DefinePlugin({
                 WEATHER_API_KEY: JSON.stringify(env.WEATHER_API_KEY),
+                GEOLOCATION_API_KEY: JSON.stringify(env.GEOLOCATION_API_KEY),
                 ENV: JSON.stringify(mode),
             }),
         ],

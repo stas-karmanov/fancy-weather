@@ -11,6 +11,7 @@
     ],
     "globals": {
         "WEATHER_API_KEY": "readonly",
+        "GEOLOCATION_API_KEY": "readonly",
         "ENV": "readonly"
     },
     "parserOptions": {
