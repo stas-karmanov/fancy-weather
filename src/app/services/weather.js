@@ -5,13 +5,15 @@ class WeatherService {
         this.endpoint = 'https://api.openweathermap.org/data/2.5';
     }
 
-    getWeatherInfo(region, forecastLength) {
-        return fetch(`${this.endpoint}/forecast?q=${region}&lang=en&units=metric&APPID=${config.WEATHER_API_KEY}`)
+    getWeatherInfo(region, forecastLength, abortController) {
+        return fetch(`${this.endpoint}/forecast?q=${region}&lang=en&units=metric&APPID=${config.WEATHER_API_KEY}`, {
+            signal: abortController.signal,
+        })
             .then(res => res.json())
             .then(({ list, city: { name, country } }) => ({
                 forecast: this._getForecast(list, forecastLength),
-                city: {
-                    name,
+                location: {
+                    city: name,
                     country,
                 },
             }));

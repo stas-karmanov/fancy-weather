@@ -1,40 +1,39 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
-import { geolocationService, weatherService } from '../../services';
+import { geolocationService } from '../../services';
 import { Location, Temperature, WeatherInfo, WeatherForecast } from './components';
 import { useStyles } from './Weather.styles';
+import { loadWeatherInfo } from './store/Weather.thunks';
+import { weatherForecastSelector, locationSelector } from './store/Weather.selectors';
 
 export const Weather = () => {
     const classes = useStyles();
-    const [locationInfo, setLocationInfo] = useState(null);
-    const [weatherInfo, setWeatherInfo] = useState(null);
+    const weatherForecast = useSelector(weatherForecastSelector);
+    const locationInfo = useSelector(locationSelector);
+    const dispatch = useDispatch();
+    const controller = useRef(new AbortController());
 
     useEffect(() => {
-        geolocationService.getGeolocationInfo().then(setLocationInfo);
-    }, []);
+        geolocationService.getGeolocationInfo().then(({ city }) => dispatch(loadWeatherInfo(city, controller.current)));
+    }, [dispatch]);
 
-    useEffect(() => {
-        if (!locationInfo) {
-            return;
-        }
-
-        weatherService.getWeatherInfo(locationInfo.city, 4).then(setWeatherInfo);
-    }, [locationInfo]);
-
-    if (!locationInfo || !weatherInfo) {
+    if (!weatherForecast || !locationInfo) {
         return null;
     }
+
+    controller.current.abort();
 
     return (
         <div>
             <Location location={locationInfo} />
             <div className={classes.todayWeatherInfo}>
-                <Temperature temperature={weatherInfo.forecast[0].temp} tempFontSize={306} degreesFontSize={100} />
+                <Temperature temperature={weatherForecast[0].temp} tempFontSize={306} degreesFontSize={100} />
                 <div className={classes.weatherInfo}>
-                    <WeatherInfo info={weatherInfo.forecast[0]} />
+                    <WeatherInfo info={weatherForecast[0]} />
                 </div>
             </div>
-            <WeatherForecast forecast={weatherInfo.forecast.slice(1)} />
+            <WeatherForecast forecast={weatherForecast.slice(1)} />
         </div>
     );
 };
