@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { geolocationService, weatherService } from '../../services';
-import { Location, Temperature, WeatherInfo } from './components';
+import { Location, Temperature, WeatherInfo, WeatherForecast } from './components';
 import { useStyles } from './Weather.styles';
 
 export const Weather = () => {
@@ -18,7 +18,7 @@ export const Weather = () => {
             return;
         }
 
-        weatherService.getWeatherInfo(locationInfo.city).then(setWeatherInfo);
+        weatherService.getWeatherInfo(locationInfo.city, 4).then(setWeatherInfo);
     }, [locationInfo]);
 
     if (!locationInfo || !weatherInfo) {
@@ -29,11 +29,12 @@ export const Weather = () => {
         <div>
             <Location location={locationInfo} />
             <div className={classes.todayWeatherInfo}>
-                <Temperature temperature={weatherInfo.forecast[0].temp} />
+                <Temperature temperature={weatherInfo.forecast[0].temp} tempFontSize={306} degreesFontSize={100} />
                 <div className={classes.weatherInfo}>
                     <WeatherInfo info={weatherInfo.forecast[0]} />
                 </div>
             </div>
+            <WeatherForecast forecast={weatherInfo.forecast.slice(1)} />
         </div>
     );
 };

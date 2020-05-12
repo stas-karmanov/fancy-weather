@@ -5,10 +5,10 @@ export const useStyles = createUseStyles({
         display: 'flex',
     },
     temperature: {
-        fontSize: 306,
+        fontSize: args => args.tempFontSize,
     },
     degreesSign: {
-        fontSize: 100,
-        paddingTop: 30,
+        fontSize: args => args.degreesFontSize,
+        paddingTop: '9%',
     },
 });

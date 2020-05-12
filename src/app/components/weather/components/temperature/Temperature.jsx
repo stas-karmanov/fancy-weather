@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 
 import { useStyles } from './Temperature.styles';
 
-export const Temperature = ({ temperature }) => {
-    const classes = useStyles();
+export const Temperature = ({ temperature, tempFontSize, degreesFontSize }) => {
+    const classes = useStyles({ tempFontSize, degreesFontSize });
 
     return (
         <div className={classes.temperatureWrapper}>
@@ -16,4 +16,6 @@ export const Temperature = ({ temperature }) => {
 
 Temperature.propTypes = {
     temperature: PropTypes.number.isRequired,
+    tempFontSize: PropTypes.number.isRequired,
+    degreesFontSize: PropTypes.number.isRequired,
 };
