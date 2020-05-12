@@ -12,5 +12,6 @@ export const useStyles = createUseStyles({
     },
     header: {
         marginBottom: 40,
+        width: '100%',
     },
 });

@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 
 import { useStyles } from './Search.styles';
 
-export const Search = ({ onSearch }) => {
+// eslint-disable-next-line react/display-name
+export const Search = React.memo(({ onSearch }) => {
     const classes = useStyles();
     const input = useRef(null);
 
@@ -27,7 +28,7 @@ export const Search = ({ onSearch }) => {
             </button>
         </div>
     );
-};
+});
 
 Search.propTypes = {
     onSearch: PropTypes.func.isRequired,
