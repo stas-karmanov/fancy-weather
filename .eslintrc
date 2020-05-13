@@ -7,7 +7,8 @@
         "eslint:recommended",
         "plugin:react/recommended",
         "plugin:react-hooks/recommended",
-        "plugin:import/errors"
+        "plugin:import/errors",
+        "plugin:prettier/recommended"
     ],
     "globals": {
         "WEATHER_API_KEY": "readonly",
