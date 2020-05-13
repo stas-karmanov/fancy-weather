@@ -1,4 +1,5 @@
 import { config } from '../config';
+import { SCALE } from '../components/header/components/toolbar/components/scale-switcher/ScaleSwitcher.models';
 
 class WeatherService {
     constructor() {
@@ -17,6 +18,14 @@ class WeatherService {
                     country,
                 },
             }));
+    }
+
+    convertWeather(forecast, scale) {
+        return forecast.map(record => ({
+            ...record,
+            temp: scale === SCALE.FAHRENHEIT ? Math.round(record.temp * 1.8 + 32) : record.temp,
+            feelsLike: scale === SCALE.FAHRENHEIT ? Math.round(record.feelsLike * 1.8 + 32) : record.feelsLike,
+        }));
     }
 
     _getForecast(list, forecastLength) {
