@@ -14,4 +14,10 @@ export const useStyles = createUseStyles({
         marginBottom: 40,
         width: '100%',
     },
+    main: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        width: '100%',
+    },
 });

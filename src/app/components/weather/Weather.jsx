@@ -48,7 +48,7 @@ export const Weather = () => {
     }
 
     return (
-        <div>
+        <div className={classes.weather}>
             <Location location={locationInfo} />
             <div className={classes.todayWeatherInfo}>
                 <Temperature temperature={weatherForecast[0].temp} tempFontSize={306} degreesFontSize={100} />

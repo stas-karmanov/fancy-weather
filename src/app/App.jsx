@@ -1,21 +1,24 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import { Weather, Header } from './components';
+import { Weather, Header, CoordinateInfo } from './components';
 import { useStyles } from './App.styles';
 import { backgroundSelector } from './store/App.selectors';
 
 export const App = () => {
-    const { app, wrapper, header } = useStyles();
+    const classes = useStyles();
     const backgroundUrl = useSelector(backgroundSelector);
 
     return (
-        <div className={app} style={{ background: `url("${backgroundUrl}") no-repeat center` }}>
-            <div className={wrapper}>
-                <div className={header}>
+        <div className={classes.app} style={{ background: `url("${backgroundUrl}") no-repeat center` }}>
+            <div className={classes.wrapper}>
+                <div className={classes.header}>
                     <Header />
                 </div>
-                <Weather />
+                <div className={classes.main}>
+                    <Weather />
+                    <CoordinateInfo />
+                </div>
             </div>
         </div>
     );
