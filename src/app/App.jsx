@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import { Weather, Header, CoordinateInfo } from './components';
+import { Weather, Header, CoordinatesInfo } from './components';
 import { useStyles } from './App.styles';
 import { backgroundSelector } from './store/App.selectors';
 
@@ -17,7 +17,7 @@ export const App = () => {
                 </div>
                 <div className={classes.main}>
                     <Weather />
-                    <CoordinateInfo />
+                    <CoordinatesInfo />
                 </div>
             </div>
         </div>

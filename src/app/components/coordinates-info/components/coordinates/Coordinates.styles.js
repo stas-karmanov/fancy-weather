@@ -1,11 +1,13 @@
 import { createUseStyles } from 'react-jss';
 
 export const useStyles = createUseStyles({
-    todayWeatherInfo: {
+    coordinatesContainer: {
         display: 'flex',
+        flexDirection: 'column',
         alignItems: 'flex-end',
+        marginTop: 20,
     },
-    weatherInfo: {
-        paddingBottom: 70,
+    coordinates: {
+        fontSize: 20,
     },
 });

@@ -7,6 +7,7 @@ import { useStyles } from './Weather.styles';
 import { loadWeatherInfo } from './store/Weather.thunks';
 import { weatherForecastSelector, locationSelector } from './store/Weather.selectors';
 import { localeSelector } from '../header/store/Header.selectors';
+import { loadCoordinatesInfo } from '../coordinates-info/store/CoordinatesInfo.thunks';
 
 export const Weather = () => {
     const classes = useStyles();
@@ -25,8 +26,10 @@ export const Weather = () => {
 
     useEffect(() => {
         const controller = new AbortController();
+
         geolocationService.getGeolocationInfo().then(({ city }) => {
             dispatch(loadWeatherInfo(city, localeRef.current, controller));
+            dispatch(loadCoordinatesInfo(city, controller));
         });
 
         return () => controller.abort();
@@ -48,7 +51,7 @@ export const Weather = () => {
     }
 
     return (
-        <div className={classes.weather}>
+        <div>
             <Location location={locationInfo} />
             <div className={classes.todayWeatherInfo}>
                 <Temperature temperature={weatherForecast[0].temp} tempFontSize={306} degreesFontSize={100} />

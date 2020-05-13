@@ -15,6 +15,7 @@
         "GEOLOCATION_API_KEY": "readonly",
         "IMAGES_API_KEY": "readonly",
         "MAPS_API_KEY": "readonly",
+        "GEOCODING_API_KEY": "readonly",
         "ENV": "readonly"
     },
     "parserOptions": {

@@ -1,4 +1,4 @@
-import { imagesService } from '../services/images';
+import { imagesService } from '../services';
 import { setBackground } from './App.actions';
 
 export const loadBackground = () => dispatch => {

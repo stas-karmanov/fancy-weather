@@ -43,6 +43,7 @@ module.exports = envOptions => {
                 GEOLOCATION_API_KEY: JSON.stringify(env.GEOLOCATION_API_KEY),
                 IMAGES_API_KEY: JSON.stringify(env.IMAGES_API_KEY),
                 MAPS_API_KEY: JSON.stringify(env.MAPS_API_KEY),
+                GEOCODING_API_KEY: JSON.stringify(env.GEOCODING_API_KEY),
                 ENV: JSON.stringify(mode),
             }),
         ],

@@ -6,11 +6,13 @@ import { config } from '../config';
 import { weatherReducer } from '../components/weather/store/Weather.reducer';
 import { headerReducer } from '../components/header/store/Header.reducer';
 import { backgroundReducer } from './App.reducers';
+import { coordinatesInfoReducer } from '../components/coordinates-info/store/CoordinatesInfo.reducer';
 
 export const store = createStore(
     combineReducers({
         weather: weatherReducer,
         header: headerReducer,
+        coordinatesInfo: coordinatesInfoReducer,
         background: backgroundReducer,
     }),
     compose(applyMiddleware(thunkMiddleware), config.ENV === 'development' ? composeWithDevTools() : undefined),
