@@ -6,13 +6,20 @@ class WeatherService {
         this.endpoint = 'https://api.openweathermap.org/data/2.5';
     }
 
-    getWeatherInfo(region, forecastLength, abortController) {
-        return fetch(`${this.endpoint}/forecast?q=${region}&lang=en&units=metric&APPID=${config.WEATHER_API_KEY}`, {
+    getWeatherInfo({ region, forecastLength, abortController, locale }) {
+        const searchParams = new URLSearchParams([
+            ['q', region],
+            ['lang', locale],
+            ['units', 'metric'],
+            ['APPID', config.WEATHER_API_KEY],
+        ]);
+
+        return fetch(`${this.endpoint}/forecast?${searchParams.toString()}`, {
             signal: abortController.signal,
         })
             .then(res => res.json())
             .then(({ list, city: { name, country } }) => ({
-                forecast: this._getForecast(list, forecastLength),
+                forecast: this._adaptForecast(list, forecastLength),
                 location: {
                     city: name,
                     country,
@@ -28,7 +35,7 @@ class WeatherService {
         }));
     }
 
-    _getForecast(list, forecastLength) {
+    _adaptForecast(list, forecastLength) {
         return list.reduce(
             (acc, record) => {
                 const date = new Date(record.dt_txt);

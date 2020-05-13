@@ -6,23 +6,46 @@ import { Location, Temperature, WeatherInfo, WeatherForecast } from './component
 import { useStyles } from './Weather.styles';
 import { loadWeatherInfo } from './store/Weather.thunks';
 import { weatherForecastSelector, locationSelector } from './store/Weather.selectors';
+import { localeSelector } from '../header/store/Header.selectors';
 
 export const Weather = () => {
     const classes = useStyles();
     const weatherForecast = useSelector(weatherForecastSelector);
-    const locationInfo = useSelector(locationSelector);
+    const locale = useSelector(localeSelector);
     const dispatch = useDispatch();
-    const controller = useRef(new AbortController());
+
+    const locationInfo = useSelector(locationSelector);
+    const locationRef = useRef(locationInfo);
+    const localeRef = useRef(locale);
 
     useEffect(() => {
-        geolocationService.getGeolocationInfo().then(({ city }) => dispatch(loadWeatherInfo(city, controller.current)));
+        locationRef.current = locationInfo;
+        localeRef.current = locale;
+    });
+
+    useEffect(() => {
+        const controller = new AbortController();
+        geolocationService.getGeolocationInfo().then(({ city }) => {
+            dispatch(loadWeatherInfo(city, localeRef.current, controller));
+        });
+
+        return () => controller.abort();
     }, [dispatch]);
+
+    useEffect(() => {
+        if (!locationRef.current) {
+            return;
+        }
+
+        const controller = new AbortController();
+        dispatch(loadWeatherInfo(locationRef.current.city, locale, controller));
+
+        return () => controller.abort();
+    }, [dispatch, locale]);
 
     if (!weatherForecast || !locationInfo) {
         return null;
     }
-
-    controller.current.abort();
 
     return (
         <div>

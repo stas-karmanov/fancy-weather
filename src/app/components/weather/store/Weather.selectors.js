@@ -1,10 +1,10 @@
 import { weatherService } from '../../../services/weather';
 
-export const weatherForecastSelector = ({ weather, header: { scale } }) => {
-    if (!weather) {
-        return weather;
+export const weatherForecastSelector = ({ weather: { forecast }, header: { scale } }) => {
+    if (!forecast) {
+        return forecast;
     }
 
-    return weatherService.convertWeather(weather.forecast, scale);
+    return weatherService.convertWeather(forecast, scale);
 };
-export const locationSelector = ({ weather }) => weather && weather.location;
+export const locationSelector = ({ weather: { location } }) => location;
