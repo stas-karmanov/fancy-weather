@@ -29,7 +29,7 @@ module.exports = envOptions => {
                     use: ['style-loader', 'css-loader'],
                 },
                 {
-                    test: /\.(woff|woff2|eot|ttf|otf|svg)$/,
+                    test: /\.(woff|woff2|eot|ttf|otf|svg|jpg)$/,
                     use: ['file-loader'],
                 },
             ],

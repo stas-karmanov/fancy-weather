@@ -1,16 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { imagesService } from './services/images';
 import { Weather, Header } from './components';
 import { useStyles } from './App.styles';
+import { loadBackground } from './store/App.thunks';
+import { backgroundSelector } from './store/App.selectors';
 
 export const App = () => {
     const { app, wrapper, header } = useStyles();
-    const [backgroundUrl, setBackground] = useState('');
+    const backgroundUrl = useSelector(backgroundSelector);
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        imagesService.getRandomImage().then(setBackground);
-    }, []);
+        dispatch(loadBackground());
+    }, [dispatch]);
 
     return (
         <div className={app} style={{ background: `url("${backgroundUrl}") no-repeat center` }}>
