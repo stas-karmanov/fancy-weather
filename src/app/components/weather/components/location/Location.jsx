@@ -1,15 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useContext, useCallback, useReducer } from 'react';
 import PropTypes from 'prop-types';
 
 import { useStyles } from './Location.styles';
-import { WEEK_DAYS, MONTHS } from './Location.models';
+import { LocaleContext } from '../../../../localizator/Localizator';
 
 export const Location = ({ location: { country, city } }) => {
     const classes = useStyles();
-    const [date, setDate] = useState(getDate());
+    const { days, months } = useContext(LocaleContext);
+
+    const getDate = useCallback(
+        date => {
+            const minutes = date.getMinutes().toString().padStart(2, '0');
+
+            return `${days[date.getDay()]} ${date.getDate()} ${months[date.getMonth()]} ${date.getHours()}:${minutes}`;
+        },
+        [days, months],
+    );
+
+    const [date, updateDate] = useReducer((_, date) => getDate(date), getDate(new Date()));
 
     useEffect(() => {
-        const intervalId = setInterval(() => setDate(getDate()), 1000);
+        const intervalId = setInterval(() => updateDate(new Date()), 1000);
         return () => clearInterval(intervalId);
     }, []);
 
@@ -19,13 +30,6 @@ export const Location = ({ location: { country, city } }) => {
             <div className={classes.time}>{date}</div>
         </div>
     );
-};
-
-const getDate = () => {
-    const date = new Date();
-    const minutes = date.getMinutes().toString().padStart(2, '0');
-
-    return `${WEEK_DAYS[date.getDay()]} ${date.getDate()} ${MONTHS[date.getMonth()]} ${date.getHours()}:${minutes}`;
 };
 
 Location.propTypes = {
