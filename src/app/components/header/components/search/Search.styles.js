@@ -27,6 +27,7 @@ export const useStyles = createUseStyles({
         border: 'none',
         color: '#fff',
         fontSize: 14,
+        textTransform: 'uppercase',
         '&:hover': {
             cursor: 'pointer',
         },

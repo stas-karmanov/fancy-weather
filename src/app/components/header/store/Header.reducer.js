@@ -1,6 +1,6 @@
 import { SCALE } from '../components/toolbar/components/scale-switcher/ScaleSwitcher.models';
 import { setScale, setLocale } from './Header.actions';
-import { LOCALE } from '../components/toolbar/components/locale-picker/LocalePicker.models';
+import { LOCALE } from '../../../localizator/Localizator.models';
 
 const DEFAULT_STATE = {
     scale: SCALE.CELCIUS,

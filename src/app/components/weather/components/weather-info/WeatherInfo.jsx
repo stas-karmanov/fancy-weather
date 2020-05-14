@@ -1,17 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 
 import { useStyles } from './WeatherInfo.styles';
+import { LocaleContext } from '../../../../localizator/Localizator';
 
 export const WeatherInfo = ({ info }) => {
     const { temperatureInfo, infoRecord } = useStyles();
+    const localization = useContext(LocaleContext);
 
     return (
         <div className={temperatureInfo}>
             <div className={infoRecord}>{info.description.name}</div>
-            <div className={infoRecord}>{`Feels Like: ${info.feelsLike}°`}</div>
-            <div className={infoRecord}>{`Wind: ${info.wind} m/s`}</div>
-            <div className={infoRecord}>{`Humidity: ${info.humidity}%`}</div>
+            <div className={infoRecord}>{`${localization.feelsLike}: ${info.feelsLike}°`}</div>
+            <div className={infoRecord}>{`${localization.wind}: ${info.wind} ${localization.ms}`}</div>
+            <div className={infoRecord}>{`${localization.humidity}: ${info.humidity}%`}</div>
         </div>
     );
 };
