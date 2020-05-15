@@ -8,6 +8,7 @@ import { headerReducer } from '../components/header/store/Header.reducer';
 import { backgroundReducer } from './App.reducers';
 import { coordinatesInfoReducer } from '../components/coordinates-info/store/CoordinatesInfo.reducer';
 import { errorsReducer } from '../components/errors/store/Errors.reducer';
+import { localStorageMiddleware } from './middlewares';
 
 export const store = createStore(
     combineReducers({
@@ -17,5 +18,8 @@ export const store = createStore(
         background: backgroundReducer,
         errors: errorsReducer,
     }),
-    compose(applyMiddleware(thunkMiddleware), config.ENV === 'development' ? composeWithDevTools() : undefined),
+    compose(
+        applyMiddleware(thunkMiddleware, localStorageMiddleware),
+        config.ENV === 'development' ? composeWithDevTools() : undefined,
+    ),
 );

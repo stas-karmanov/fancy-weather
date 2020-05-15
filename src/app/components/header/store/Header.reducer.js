@@ -2,9 +2,14 @@ import { SCALE } from '../components/toolbar/components/scale-switcher/ScaleSwit
 import { setScale, setLocale } from './Header.actions';
 import { LOCALE } from '../../../localizator/Localizator.models';
 
+export const HEADER_STATE_KEY = {
+    LOCALE: 'locale',
+    SCALE: 'scale',
+};
+
 const DEFAULT_STATE = {
-    scale: SCALE.CELCIUS,
-    locale: LOCALE.EN,
+    scale: localStorage.getItem(HEADER_STATE_KEY.SCALE) || SCALE.CELCIUS,
+    locale: localStorage.getItem(HEADER_STATE_KEY.LOCALE) || LOCALE.EN,
 };
 
 export const headerReducer = (state = DEFAULT_STATE, action) => {
