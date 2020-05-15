@@ -8,6 +8,7 @@ import { loadWeatherInfo } from './store/Weather.thunks';
 import { weatherForecastSelector, locationSelector } from './store/Weather.selectors';
 import { localeSelector } from '../header/store/Header.selectors';
 import { loadCoordinatesInfo } from '../coordinates-info/store/CoordinatesInfo.thunks';
+import { addError } from '../errors/store/Errors.actions';
 
 export const Weather = () => {
     const classes = useStyles();
@@ -27,10 +28,13 @@ export const Weather = () => {
     useEffect(() => {
         const controller = new AbortController();
 
-        geolocationService.getGeolocationInfo().then(({ city }) => {
-            dispatch(loadWeatherInfo(city, localeRef.current, controller));
-            dispatch(loadCoordinatesInfo(city, controller));
-        });
+        geolocationService
+            .getGeolocationInfo()
+            .then(({ city }) => {
+                dispatch(loadWeatherInfo(city, localeRef.current, controller));
+                dispatch(loadCoordinatesInfo(city, controller));
+            })
+            .catch(() => dispatch(addError('Geolocation request failed!')));
 
         return () => controller.abort();
     }, [dispatch]);

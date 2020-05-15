@@ -3,6 +3,7 @@ import { createUseStyles } from 'react-jss';
 export const useStyles = createUseStyles({
     app: {
         height: '100vh',
+        position: 'relative',
     },
     wrapper: {
         display: 'flex',
