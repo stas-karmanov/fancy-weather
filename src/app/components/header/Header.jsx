@@ -5,7 +5,6 @@ import { Search, Toolbar } from './components';
 import { useStyles } from './Header.styles';
 import { loadWeatherInfo } from '../weather/store/Weather.thunks';
 import { localeSelector } from './store/Header.selectors';
-import { loadCoordinatesInfo } from '../coordinates-info/store/CoordinatesInfo.thunks';
 
 export const Header = () => {
     const { header } = useStyles();
@@ -19,7 +18,6 @@ export const Header = () => {
             controller.current = new AbortController();
 
             dispatch(loadWeatherInfo(city, locale, controller.current));
-            dispatch(loadCoordinatesInfo(city, controller.current));
         },
         [dispatch, locale],
     );

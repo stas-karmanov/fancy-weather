@@ -7,7 +7,6 @@ import { useStyles } from './Weather.styles';
 import { loadWeatherInfo } from './store/Weather.thunks';
 import { weatherForecastSelector, locationSelector } from './store/Weather.selectors';
 import { localeSelector } from '../header/store/Header.selectors';
-import { loadCoordinatesInfo } from '../coordinates-info/store/CoordinatesInfo.thunks';
 import { addError } from '../errors/store/Errors.actions';
 
 export const Weather = () => {
@@ -30,10 +29,7 @@ export const Weather = () => {
 
         geolocationService
             .getGeolocationInfo()
-            .then(({ city }) => {
-                dispatch(loadWeatherInfo(city, localeRef.current, controller));
-                dispatch(loadCoordinatesInfo(city, controller));
-            })
+            .then(({ city }) => dispatch(loadWeatherInfo(city, localeRef.current, controller)))
             .catch(() => dispatch(addError('Geolocation request failed!')));
 
         return () => controller.abort();
