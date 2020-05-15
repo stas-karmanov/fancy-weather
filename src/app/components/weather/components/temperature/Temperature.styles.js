@@ -9,6 +9,5 @@ export const useStyles = createUseStyles({
     },
     degreesSign: {
         fontSize: args => args.degreesFontSize,
-        paddingTop: '9%',
     },
 });
