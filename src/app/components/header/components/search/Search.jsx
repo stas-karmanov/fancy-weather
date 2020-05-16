@@ -23,17 +23,22 @@ export const Search = React.memo(({ onSearch }) => {
 
     return (
         <div className={classes.search}>
-            <input
-                ref={input}
-                className={classes.input}
-                type="text"
-                placeholder={localization.searchCity}
-                onKeyUp={({ keyCode }) => {
-                    if (keyCode === 13) {
-                        handleSearch();
-                    }
-                }}
-            />
+            <div className={classes.inputWrapper}>
+                <input
+                    ref={input}
+                    className={classes.input}
+                    type="text"
+                    placeholder={localization.searchCity}
+                    onKeyUp={({ keyCode }) => {
+                        if (keyCode === 13) {
+                            handleSearch();
+                        }
+                    }}
+                />
+                <div className={classes.microphone}>
+                    <i className="ic-mic"></i>
+                </div>
+            </div>
             <button className={classes.button} onClick={handleSearch}>
                 {localization.search}
             </button>
