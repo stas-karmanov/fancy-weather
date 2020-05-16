@@ -1,13 +1,13 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import { useStyles } from './Coordinates.styles';
-import { LocaleContext } from '../../../../localizator/Localizator';
+import { useLocalization } from '../../../../common/useLocalization';
 
 // eslint-disable-next-line react/display-name
 export const Coordinates = React.memo(({ coordinatesInfo: { lat, lng } }) => {
     const classes = useStyles();
-    const localization = useContext(LocaleContext);
+    const localization = useLocalization();
 
     const latitude = parseCoordinates(lat);
     const longitude = parseCoordinates(lng);

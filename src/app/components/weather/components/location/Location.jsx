@@ -1,12 +1,12 @@
-import React, { useEffect, useContext, useCallback, useReducer } from 'react';
+import React, { useEffect, useCallback, useReducer } from 'react';
 import PropTypes from 'prop-types';
 
 import { useStyles } from './Location.styles';
-import { LocaleContext } from '../../../../localizator/Localizator';
+import { useLocalization } from '../../../../common/useLocalization';
 
 export const Location = ({ location: { country, city } }) => {
     const classes = useStyles();
-    const { days, months } = useContext(LocaleContext);
+    const { days, months } = useLocalization();
 
     const getDate = useCallback(
         date => {

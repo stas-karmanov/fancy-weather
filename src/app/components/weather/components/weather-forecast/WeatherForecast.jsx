@@ -1,13 +1,13 @@
-import React, { useContext, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 
 import { Temperature } from '../temperature/Temperature';
 import { useStyles } from './WeatherForecast.styles';
-import { LocaleContext } from '../../../../localizator/Localizator';
+import { useLocalization } from '../../../../common/useLocalization';
 
 export const WeatherForecast = ({ forecast }) => {
     const classes = useStyles();
-    const { days } = useContext(LocaleContext);
+    const { days } = useLocalization();
 
     const getDay = useCallback(date => days[new Date(date).getDay()], [days]);
 

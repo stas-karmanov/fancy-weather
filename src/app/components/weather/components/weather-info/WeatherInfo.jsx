@@ -1,12 +1,12 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import { useStyles } from './WeatherInfo.styles';
-import { LocaleContext } from '../../../../localizator/Localizator';
+import { useLocalization } from '../../../../common/useLocalization';
 
 export const WeatherInfo = ({ info }) => {
     const { temperatureInfo, infoRecord } = useStyles();
-    const localization = useContext(LocaleContext);
+    const localization = useLocalization();
 
     return (
         <div className={temperatureInfo}>

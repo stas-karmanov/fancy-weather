@@ -1,14 +1,14 @@
-import React, { useRef, useContext, useCallback, useMemo, useEffect } from 'react';
+import React, { useRef, useCallback, useMemo, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { useStyles } from './Search.styles';
-import { LocaleContext } from '../../../../localizator/Localizator';
-import { useClickOutside } from '../../../../common/click-outside';
+import { useClickOutside } from '../../../../common/useClickOutside';
+import { useLocalization } from '../../../../common/useLocalization';
 
 // eslint-disable-next-line react/display-name
 export const Search = React.memo(({ onSearch }) => {
     const classes = useStyles();
-    const localization = useContext(LocaleContext);
+    const localization = useLocalization();
     const input = useRef(null);
     const microphone = useRef(null);
     const recognition = useMemo(() => new SpeechRecognition(), []);

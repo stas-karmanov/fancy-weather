@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { useStyles } from './LocalePicker.styles';
 import { LocaleItem } from './components';
 import { LOCALES } from './LocalePicker.models';
-import { useClickOutside } from '../../../../../../common/click-outside';
+import { useClickOutside } from '../../../../../../common/useClickOutside';
 
 // eslint-disable-next-line react/display-name
 export const LocalePicker = React.memo(({ selectedLocale, onSelect: onSelectHandler }) => {

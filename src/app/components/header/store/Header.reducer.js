@@ -1,6 +1,6 @@
 import { SCALE } from '../components/toolbar/components/scale-switcher/ScaleSwitcher.models';
 import { setScale, setLocale } from './Header.actions';
-import { LOCALE } from '../../../localizator/Localizator.models';
+import { LOCALE } from '../../../../localization/localization.models';
 
 export const HEADER_STATE_KEY = {
     LOCALE: 'locale',

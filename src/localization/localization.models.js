@@ -1,6 +1,6 @@
-import { enLocale } from '../../localization/en';
-import { ruLocale } from '../../localization/ru';
-import { beLocale } from '../../localization/be';
+import { enLocale } from './en';
+import { ruLocale } from './ru';
+import { beLocale } from './be';
 
 export const LOCALE = {
     EN: 'en',
