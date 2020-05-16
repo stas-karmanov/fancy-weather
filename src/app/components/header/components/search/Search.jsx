@@ -1,25 +1,36 @@
-import React, { useRef, useContext, useCallback } from 'react';
+import React, { useRef, useContext, useCallback, useMemo, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { useStyles } from './Search.styles';
 import { LocaleContext } from '../../../../localizator/Localizator';
+import { useClickOutside } from '../../../../common/click-outside';
 
 // eslint-disable-next-line react/display-name
 export const Search = React.memo(({ onSearch }) => {
     const classes = useStyles();
     const localization = useContext(LocaleContext);
     const input = useRef(null);
+    const microphone = useRef(null);
+    const recognition = useMemo(() => new SpeechRecognition(), []);
+
+    useEffect(() => {
+        recognition.onresult = event => console.log(event);
+    }, [recognition]);
+
+    useClickOutside(
+        microphone,
+        useCallback(() => recognition.stop(), [recognition]),
+    );
 
     const handleSearch = useCallback(() => {
         const value = input.current.value;
-
-        if (!value) {
-            return;
+        if (value) {
+            input.current.value = '';
+            onSearch(value);
         }
-
-        input.current.value = '';
-        onSearch(value);
     }, [onSearch]);
+
+    const onMicrophoneClick = useCallback(() => recognition.start(), [recognition]);
 
     return (
         <div className={classes.search}>
@@ -35,7 +46,7 @@ export const Search = React.memo(({ onSearch }) => {
                         }
                     }}
                 />
-                <div className={classes.microphone}>
+                <div className={classes.microphone} onClick={onMicrophoneClick} ref={microphone}>
                     <i className="ic-mic"></i>
                 </div>
             </div>

@@ -1,9 +1,10 @@
-import React, { useState, useCallback, useRef, useEffect } from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
 
 import { useStyles } from './LocalePicker.styles';
 import { LocaleItem } from './components';
 import { LOCALES } from './LocalePicker.models';
+import { useClickOutside } from '../../../../../../common/click-outside';
 
 // eslint-disable-next-line react/display-name
 export const LocalePicker = React.memo(({ selectedLocale, onSelect: onSelectHandler }) => {
@@ -11,16 +12,10 @@ export const LocalePicker = React.memo(({ selectedLocale, onSelect: onSelectHand
     const classes = useStyles(isOpen);
     const picker = useRef(null);
 
-    const onOutsideClick = useCallback(event => {
-        if (!picker.current.contains(event.target)) {
-            setDropdownState(false);
-        }
-    }, []);
-
-    useEffect(() => {
-        document.addEventListener('click', onOutsideClick);
-        return () => document.removeEventListener('click', onOutsideClick);
-    }, [onOutsideClick]);
+    useClickOutside(
+        picker,
+        useCallback(() => setDropdownState(false), [setDropdownState]),
+    );
 
     const onSelect = useCallback(
         locale => {
@@ -30,26 +25,24 @@ export const LocalePicker = React.memo(({ selectedLocale, onSelect: onSelectHand
         [onSelectHandler],
     );
 
-    let dropdownList = null;
-
-    if (isOpen) {
-        dropdownList = LOCALES.map((locale, index, arr) => (
-            <LocaleItem
-                key={locale}
-                locale={locale}
-                isSelected={locale === selectedLocale}
-                isLast={arr.length - 1 === index}
-                onSelect={onSelect}
-            />
-        ));
-    }
-
     return (
         <div ref={picker} className={classes.localePicker}>
             <div className={classes.dropdownButton} onClick={() => setDropdownState(!isOpen)}>
                 {selectedLocale}
             </div>
-            <div className={classes.dropdownList}>{dropdownList}</div>
+            {isOpen ? (
+                <div className={classes.dropdownList}>
+                    {LOCALES.map((locale, index, arr) => (
+                        <LocaleItem
+                            key={locale}
+                            locale={locale}
+                            isSelected={locale === selectedLocale}
+                            isLast={arr.length - 1 === index}
+                            onSelect={onSelect}
+                        />
+                    ))}
+                </div>
+            ) : null}
         </div>
     );
 });

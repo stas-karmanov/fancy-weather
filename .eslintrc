@@ -16,7 +16,8 @@
         "IMAGES_API_KEY": "readonly",
         "MAPS_API_KEY": "readonly",
         "GEOCODING_API_KEY": "readonly",
-        "ENV": "readonly"
+        "ENV": "readonly",
+        "SpeechRecognition": "readonly"
     },
     "parserOptions": {
         "ecmaVersion": 2018,
