@@ -43,7 +43,8 @@ export const useStyles = createUseStyles(() => {
             position: 'absolute',
             right: 0,
             top: 0,
-            color: 'rgba(128, 128, 128, 0.6)',
+            color: ({ isRecognitionActive }) =>
+                isRecognitionActive ? 'rgba(255, 0, 0, 0.4)' : 'rgba(128, 128, 128, 0.6)',
             height: searchHeight,
             display: 'flex',
             alignItems: 'center',
@@ -51,7 +52,8 @@ export const useStyles = createUseStyles(() => {
             fontSize: 20,
             cursor: 'pointer',
             '&:hover': {
-                color: 'rgb(128, 128, 128)',
+                color: ({ isRecognitionActive }) =>
+                    isRecognitionActive ? 'rgba(255, 0, 0, 0.4)' : 'rgba(128, 128, 128)',
             },
         },
         inputWrapper: {

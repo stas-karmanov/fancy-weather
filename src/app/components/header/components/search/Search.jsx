@@ -1,4 +1,4 @@
-import React, { useRef, useCallback, useMemo, useEffect } from 'react';
+import React, { useRef, useCallback, useMemo, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { useStyles } from './Search.styles';
@@ -7,19 +7,32 @@ import { useLocalization } from '../../../../common/useLocalization';
 
 // eslint-disable-next-line react/display-name
 export const Search = React.memo(({ onSearch }) => {
-    const classes = useStyles();
+    const [isRecognitionActive, setRecognitionState] = useState(false);
+    const classes = useStyles({ isRecognitionActive });
     const localization = useLocalization();
     const input = useRef(null);
     const microphone = useRef(null);
     const recognition = useMemo(() => new SpeechRecognition(), []);
 
     useEffect(() => {
-        recognition.onresult = event => console.log(event);
-    }, [recognition]);
+        recognition.onresult = ({ results }) => {
+            const city = results[results.length - 1][0].transcript;
+            setRecognitionState(false);
+
+            if (city) {
+                onSearch(city);
+            }
+        };
+
+        recognition.onend = () => setRecognitionState(false);
+    }, [recognition, onSearch]);
 
     useClickOutside(
         microphone,
-        useCallback(() => recognition.stop(), [recognition]),
+        useCallback(() => {
+            setRecognitionState(false);
+            recognition.stop();
+        }, [recognition]),
     );
 
     const handleSearch = useCallback(() => {
@@ -30,7 +43,14 @@ export const Search = React.memo(({ onSearch }) => {
         }
     }, [onSearch]);
 
-    const onMicrophoneClick = useCallback(() => recognition.start(), [recognition]);
+    const onMicrophoneClick = useCallback(() => {
+        if (isRecognitionActive) {
+            recognition.stop();
+        } else {
+            recognition.start();
+        }
+        setRecognitionState(!isRecognitionActive);
+    }, [recognition, isRecognitionActive]);
 
     return (
         <div className={classes.search}>
