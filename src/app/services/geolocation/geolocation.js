@@ -1,6 +1,6 @@
-import { config } from '../config';
+import { config } from '../../config';
 
-class GeolocationService {
+export class GeolocationService {
     constructor() {
         this.endpoint = 'https://ipinfo.io';
     }
@@ -11,5 +11,3 @@ class GeolocationService {
             .then(({ city, country }) => ({ city, country }));
     }
 }
-
-export const geolocationService = new GeolocationService();

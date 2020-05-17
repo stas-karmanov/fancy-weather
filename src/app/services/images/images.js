@@ -1,6 +1,6 @@
-import { config } from '../config';
+import { config } from '../../config';
 
-class ImagesService {
+export class ImagesService {
     constructor() {
         this.endpoint = 'https://api.unsplash.com/photos';
     }
@@ -20,5 +20,3 @@ class ImagesService {
             );
     }
 }
-
-export const imagesService = new ImagesService();

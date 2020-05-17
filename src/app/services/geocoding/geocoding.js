@@ -1,6 +1,6 @@
-import { config } from '../config';
+import { config } from '../../config';
 
-class GeocodingService {
+export class GeocodingService {
     constructor() {
         this.endpoint = 'https://api.opencagedata.com/geocode/v1';
     }
@@ -18,5 +18,3 @@ class GeocodingService {
             .then(({ results }) => results[0].geometry);
     }
 }
-
-export const geocodingService = new GeocodingService();

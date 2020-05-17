@@ -1,7 +1,7 @@
-import { config } from '../config';
-import { SCALE } from '../components/header/components/toolbar/components/scale-switcher/ScaleSwitcher.models';
+import { config } from '../../config';
+import { SCALE } from '../../components/header/components/toolbar/components/scale-switcher/ScaleSwitcher.models';
 
-class WeatherService {
+export class WeatherService {
     constructor() {
         this.endpoint = 'https://api.openweathermap.org/data/2.5';
     }
@@ -61,5 +61,3 @@ class WeatherService {
         ).forecast;
     }
 }
-
-export const weatherService = new WeatherService();

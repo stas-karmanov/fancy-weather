@@ -1,5 +1,6 @@
 webpack.config.js
 jest.config.js
+babel2.config.js
 /src/assets
 /mocks
 *.html
