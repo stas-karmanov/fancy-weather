@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { useStyles } from './Coordinates.styles';
 import { useLocalization } from '../../../../common/useLocalization';
 
-// eslint-disable-next-line react/display-name
 export const Coordinates = React.memo(({ coordinatesInfo: { lat, lng } }) => {
     const classes = useStyles();
     const localization = useLocalization();

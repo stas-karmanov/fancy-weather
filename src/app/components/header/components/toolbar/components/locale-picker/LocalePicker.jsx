@@ -6,7 +6,6 @@ import { LocaleItem } from './components';
 import { LOCALES } from './LocalePicker.models';
 import { useClickOutside } from '../../../../../../common/useClickOutside';
 
-// eslint-disable-next-line react/display-name
 export const LocalePicker = React.memo(({ selectedLocale, onSelect: onSelectHandler }) => {
     const [isOpen, setDropdownState] = useState(false);
     const classes = useStyles(isOpen);

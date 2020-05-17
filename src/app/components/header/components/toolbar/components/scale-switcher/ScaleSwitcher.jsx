@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { useStyles } from './ScaleSwitcher.styles';
 import { SCALE } from './ScaleSwitcher.models';
 
-// eslint-disable-next-line react/display-name
 export const ScaleSwitcher = React.memo(({ scale, onChange }) => {
     const classes = useStyles(scale);
 

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import { useStyles } from './Refresher.styles';
 
-// eslint-disable-next-line react/display-name
 export const Refresher = React.memo(({ onRefresh }) => {
     const classes = useStyles();
 

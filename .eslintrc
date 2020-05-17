@@ -33,7 +33,8 @@
         "semi": ["error", "always"],
         "react-hooks/rules-of-hooks": "error",
         "react-hooks/exhaustive-deps": "warn",
-        "react/prop-types": [2, { "ignore": ["children"] }]
+        "react/prop-types": [2, { "ignore": ["children"] }],
+        "react/display-name": "off"
     },
     "settings": {
         "import/resolver": {

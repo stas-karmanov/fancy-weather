@@ -5,7 +5,6 @@ import { useStyles } from './Search.styles';
 import { useClickOutside } from '../../../../common/useClickOutside';
 import { useLocalization } from '../../../../common/useLocalization';
 
-// eslint-disable-next-line react/display-name
 export const Search = React.memo(({ onSearch }) => {
     const [isRecognitionActive, setRecognitionState] = useState(false);
     const classes = useStyles({ isRecognitionActive });

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import { useStyles } from './ErrorNotification.styles';
 
-// eslint-disable-next-line react/display-name
 export const ErrorNotification = React.memo(({ errorMessage, index, onClose }) => {
     const classes = useStyles();
     return (
