@@ -45,8 +45,8 @@ export class WeatherService {
                 }
 
                 acc.forecast.push({
-                    temp: Math.round(record.main.temp),
-                    feelsLike: Math.round(record.main.feels_like),
+                    temp: Math.round(record.main.temp) || 0,
+                    feelsLike: Math.round(record.main.feels_like) || 0,
                     humidity: record.main.humidity,
                     description: { id: record.weather[0].main, name: record.weather[0].description },
                     wind: Math.round(record.wind.speed),

@@ -6,5 +6,7 @@ module.exports = {
         '!**/*.models.js',
         '!**/index.js',
         '!**/coverage/**',
+        '!**/localization/**',
+        '!**/*.mocks.js',
     ],
 };
