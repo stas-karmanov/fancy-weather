@@ -9,4 +9,5 @@ module.exports = {
         '!**/localization/**',
         '!**/*.mocks.js',
     ],
+    setupFilesAfterEnv: ['./enzyme.config.js'],
 };
