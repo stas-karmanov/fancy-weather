@@ -7,7 +7,7 @@
         "test": "jest",
         "start": "webpack-dev-server",
         "build": "webpack --env.production",
-        "lint": "eslint src/**"
+        "lint": "eslint src/** --no-error-on-unmatched-pattern --ext .jsx,.js"
     },
     "repository": {
         "type": "git",
