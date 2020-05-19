@@ -8,12 +8,13 @@ import { backgroundSelector } from './store/App.selectors';
 export const App = () => {
     const classes = useStyles();
     const backgroundUrl = useSelector(backgroundSelector);
-
+    var a = 4;
     return (
         <div className={classes.app} style={{ background: `url("${backgroundUrl}") no-repeat center` }}>
             <Errors />
             <div className={classes.wrapper}>
-                <div className={classes.header}>
+                <div className={classes.header}
+                >
                     <Header />
                 </div>
                 <div className={classes.main}>
