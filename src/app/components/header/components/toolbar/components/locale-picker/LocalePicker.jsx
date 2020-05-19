@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef } from 'react';
+import React, { useCallback, useRef, useReducer } from 'react';
 import PropTypes from 'prop-types';
 
 import { useStyles } from './LocalePicker.styles';
@@ -7,26 +7,28 @@ import { LOCALES } from './LocalePicker.models';
 import { useClickOutside } from '../../../../../../common/useClickOutside';
 
 export const LocalePicker = React.memo(({ selectedLocale, onSelect: onSelectHandler }) => {
-    const [isOpen, setDropdownState] = useState(false);
+    const [isOpen, updateDropdownState] = useReducer((state, value) => (value == null ? !state : value), false);
     const classes = useStyles(isOpen);
     const picker = useRef(null);
 
     useClickOutside(
         picker,
-        useCallback(() => setDropdownState(false), [setDropdownState]),
+        useCallback(() => updateDropdownState(false), [updateDropdownState]),
     );
 
     const onSelect = useCallback(
         locale => {
-            setDropdownState(false);
+            updateDropdownState(false);
             onSelectHandler(locale);
         },
         [onSelectHandler],
     );
 
+    const onDropdownClick = useCallback(() => updateDropdownState(), []);
+
     return (
         <div ref={picker} className={classes.localePicker}>
-            <div className={classes.dropdownButton} onClick={() => setDropdownState(!isOpen)}>
+            <div className={classes.dropdownButton} onClick={onDropdownClick}>
                 {selectedLocale}
             </div>
             {isOpen ? (
