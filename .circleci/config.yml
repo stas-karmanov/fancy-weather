@@ -2,17 +2,70 @@ version: 2.1
 orbs:
     node: circleci/node@1.1.6
 jobs:
-    build-and-test:
+    install-dependencies:
         executor:
             name: node/default
         steps:
             - checkout
-            - node/with-cache:
-                  steps:
-                      - run: npm ci
-                      - run: npm run lint
-                      - run: npm test
+            - run: npm ci
+            - save_cache:
+                  key: dependency-cache-{{ checksum "package-lock.json" }}
+                  paths:
+                      - node_modules
+    lint-and-test:
+        executor:
+            name: node/default
+        steps:
+            - checkout
+            - restore_cache:
+                  key: dependency-cache-{{ checksum "package-lock.json" }}
+            - run: npm run lint
+            - run: npm test
+    build:
+        executor:
+            name: node/default
+        steps:
+            - checkout
+            - restore_cache:
+                  key: dependency-cache-{{ checksum "package-lock.json" }}
+            - run: npm run build
+            - save_cache:
+                  key: build-cache
+                  paths:
+                      - dist
+    deploy:
+        executor: node/default
+        steps:
+            - checkout
+            - restore_cache:
+                  key: dependency-cache-{{ checksum "package-lock.json" }}
+            - restore_cache:
+                  key: build-cache
+            - run:
+                  name: install netlify cli
+                  command: sudo npm install netlify-cli -g
+            - run:
+                  name: deploy to netlify
+                  command: netlify deploy --dir=dist -p
 workflows:
-    build-and-test:
+    lint-test-deploy:
         jobs:
-            - build-and-test
+            - install-dependencies
+            - lint-and-test:
+                  requires:
+                      - install-dependencies
+            - build:
+                  context: api-keys
+                  requires:
+                      - lint-and-test
+            - hold:
+                  type: approval
+                  requires:
+                      - build
+            - deploy:
+                  context: netlify
+                  requires:
+                      - hold
+                  filters:
+                      branches:
+                          only: master
