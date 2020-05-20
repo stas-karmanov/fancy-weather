@@ -1,8 +1,7 @@
-import { combineReducers, createStore, applyMiddleware, compose } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
+import { combineReducers, createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
+import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 
-import { config } from '../config';
 import { weatherReducer } from '../components/weather/store/Weather.reducer';
 import { headerReducer } from '../components/header/store/Header.reducer';
 import { backgroundReducer } from './App.reducers';
@@ -18,8 +17,5 @@ export const store = createStore(
         background: backgroundReducer,
         errors: errorsReducer,
     }),
-    compose(
-        applyMiddleware(thunkMiddleware, localStorageMiddleware),
-        config.ENV === 'development' ? composeWithDevTools() : undefined,
-    ),
+    composeWithDevTools(applyMiddleware(thunkMiddleware, localStorageMiddleware)),
 );

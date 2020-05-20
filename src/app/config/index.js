@@ -4,5 +4,6 @@ export const config = {
     IMAGES_API_KEY,
     MAPS_API_KEY,
     GEOCODING_API_KEY,
-    ENV,
+    // eslint-disable-next-line no-undef
+    ENV: process.env.NODE_ENV,
 };
