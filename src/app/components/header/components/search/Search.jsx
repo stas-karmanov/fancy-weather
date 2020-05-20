@@ -2,7 +2,7 @@ import React, { useRef, useCallback, useMemo, useEffect, useState } from 'react'
 import PropTypes from 'prop-types';
 
 import { useStyles } from './Search.styles';
-// import { useClickOutside } from '../../../../common/useClickOutside';
+import { useClickOutside } from '../../../../common/useClickOutside';
 import { useLocalization } from '../../../../common/useLocalization';
 
 export const Search = React.memo(({ onSearch }) => {
@@ -26,13 +26,13 @@ export const Search = React.memo(({ onSearch }) => {
         recognition.onend = () => setRecognitionState(false);
     }, [recognition, onSearch]);
 
-    // useClickOutside(
-    //     microphone,
-    //     useCallback(() => {
-    //         setRecognitionState(false);
-    //         recognition.stop();
-    //     }, [recognition]),
-    // );
+    useClickOutside(
+        microphone,
+        useCallback(() => {
+            setRecognitionState(false);
+            recognition.stop();
+        }, [recognition]),
+    );
 
     const handleSearch = useCallback(() => {
         const value = input.current.value;
